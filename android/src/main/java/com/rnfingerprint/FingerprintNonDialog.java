@@ -22,7 +22,7 @@ import com.facebook.react.bridge.ReadableMap;
 public class FingerprintNonDialog  implements FingerprintHandler.Callback {
 
     private FingerprintManager.CryptoObject mCryptoObject;
-    private DialogResultListener dialogCallback;
+    private FingerprintDialog.DialogResultListener dialogCallback;
     private FingerprintHandler mFingerprintHandler;
     private boolean isAuthInProgress;
 
@@ -50,7 +50,7 @@ public class FingerprintNonDialog  implements FingerprintHandler.Callback {
         this.mCryptoObject = cryptoObject;
     }
 
-    public void setDialogCallback(DialogResultListener newDialogCallback) {
+    public void setDialogCallback(FingerprintDialog.DialogResultListener newDialogCallback) {
         this.dialogCallback = newDialogCallback;
     }
 
@@ -88,14 +88,6 @@ public class FingerprintNonDialog  implements FingerprintHandler.Callback {
         }
     }
 
-    public interface DialogResultListener {
-        void onAuthenticated();
-
-        void onError(String errorString, int errorCode);
-
-        void onCancelled();
-    }
-
     @Override
     public void onAuthenticated() {
         this.isAuthInProgress = false;
@@ -107,7 +99,10 @@ public class FingerprintNonDialog  implements FingerprintHandler.Callback {
         this.mFingerprintHandler.endAuth();
         this.dialogCallback.onError(errorString,errorCode);
     }
-
+    public void stop() {
+        this.isAuthInProgress = false;
+        this.mFingerprintHandler.endAuth();
+    }
     @Override
     public void onCancelled() {
         this.isAuthInProgress = false;
