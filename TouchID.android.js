@@ -16,7 +16,9 @@ export default {
       );
     });
   },
-
+stop(config) {
+   NativeTouchID.stop( );
+  },
   authenticate(reason, config) {
     var DEFAULT_CONFIG = {
       title: 'Authentication Required',
