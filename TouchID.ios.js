@@ -25,7 +25,9 @@ export default {
       });
     });
   },
+  stop(){
 
+  },
   authenticate(reason, config) {
     const DEFAULT_CONFIG = {
       fallbackLabel: null,
