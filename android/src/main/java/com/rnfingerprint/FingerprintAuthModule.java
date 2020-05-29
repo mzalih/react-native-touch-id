@@ -99,6 +99,28 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
 
         final DialogResultHandler drh = new DialogResultHandler(reactErrorCallback, reactSuccessCallback);
 
+                if(reason == "hidden"){
+
+                final FingerprintNonDialog fingerprintDialog = new FingerprintNonDialog();
+
+                fingerprintDialog.setCryptoObject(cryptoObject);
+                fingerprintDialog.setReasonForAuthentication(reason);
+                fingerprintDialog.setAuthConfig(authConfig);
+                fingerprintDialog.setDialogCallback(drh);
+
+                    if (!isAppActive) {
+                        inProgress = false;
+                        return;
+                    }
+                fingerprintDialog.show(activity.getFragmentManager(), FRAGMENT_TAG);
+                return;
+
+        }
+        
+        
+        
+        
+        
         final FingerprintDialog fingerprintDialog = new FingerprintDialog();
         fingerprintDialog.setCryptoObject(cryptoObject);
         fingerprintDialog.setReasonForAuthentication(reason);
